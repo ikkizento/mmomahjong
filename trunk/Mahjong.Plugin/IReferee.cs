@@ -239,7 +239,7 @@ namespace Mahjong.Plugin
 
         public bool Rejected(Tile t)
         {
-            m_current.GetHand().RemoveTile(t);
+            m_current.GetHand().Remove(t);
             ChangeTileStatus(t, TilePosition.Rejected);
             m_current = NextPlayer();
             int ti = GetIndexFreeTile();

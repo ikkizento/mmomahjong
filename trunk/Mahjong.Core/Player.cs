@@ -37,7 +37,7 @@ namespace Mahjong.Core
 
         public bool AddHand(Tile add)
         {
-            m_hand.AddTile(add);
+            m_hand.Add(add);
             return true;
         }
 
@@ -47,7 +47,7 @@ namespace Mahjong.Core
         }
         public bool AddCemetery(Tile add)
         {
-            m_cemetery.AddTile(add);
+            m_cemetery.Add(add);
             return true;
         }
         public Group GetExposed()
@@ -56,7 +56,7 @@ namespace Mahjong.Core
         }
         public bool AddExposed(Tile add)
         {
-            m_exposed.AddTile(add);
+            m_exposed.Add(add);
             return true;
         }
         public Tile GetRejected()
