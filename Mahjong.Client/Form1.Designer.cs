@@ -41,7 +41,7 @@ namespace Mahjong.Client
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(12, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(122, 277);
+            this.listBox1.Size = new System.Drawing.Size(122, 225);
             this.listBox1.TabIndex = 0;
             // 
             // listBox2
@@ -49,7 +49,7 @@ namespace Mahjong.Client
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(140, 12);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(122, 277);
+            this.listBox2.Size = new System.Drawing.Size(122, 225);
             this.listBox2.TabIndex = 1;
             // 
             // listBox3
@@ -57,7 +57,7 @@ namespace Mahjong.Client
             this.listBox3.FormattingEnabled = true;
             this.listBox3.Location = new System.Drawing.Point(268, 12);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(122, 277);
+            this.listBox3.Size = new System.Drawing.Size(122, 225);
             this.listBox3.TabIndex = 2;
             // 
             // listBox4
@@ -65,7 +65,7 @@ namespace Mahjong.Client
             this.listBox4.FormattingEnabled = true;
             this.listBox4.Location = new System.Drawing.Point(396, 12);
             this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(122, 277);
+            this.listBox4.Size = new System.Drawing.Size(122, 225);
             this.listBox4.TabIndex = 3;
             // 
             // textBox1

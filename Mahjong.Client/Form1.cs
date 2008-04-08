@@ -17,6 +17,7 @@ namespace Mahjong.Client
         Player p2;
         Player p3;
         Player p4;
+
         public Form1()
         {
             InitializeComponent();
@@ -48,21 +49,21 @@ namespace Mahjong.Client
             Group g2 = p2.GetHand();
             Group g3 = p3.GetHand();
             Group g4 = p4.GetHand();
-            for (int i = 0; i < g1.Count(); i++)
-                listBox1.Items.Add(g1.GetTile(i).GetNumber().ToString() + " " + g1.GetTile(i).GetFamily().ToString());
-            for (int i = 0; i < g2.Count(); i++)
-                listBox2.Items.Add(g2.GetTile(i).GetNumber().ToString() + " " + g2.GetTile(i).GetFamily().ToString());
-            for (int i = 0; i < g3.Count(); i++)
-                listBox3.Items.Add(g3.GetTile(i).GetNumber().ToString() + " " + g3.GetTile(i).GetFamily().ToString());
-            for (int i = 0; i < g4.Count(); i++)
-                listBox4.Items.Add(g4.GetTile(i).GetNumber().ToString() + " " + g4.GetTile(i).GetFamily().ToString());
+            for (int i = 0; i < g1.Count; i++)
+                listBox1.Items.Add(g1[i].GetNumber().ToString() + " " + g1[i].GetFamily().ToString());
+            for (int i = 0; i < g2.Count; i++)
+                listBox2.Items.Add(g2[i].GetNumber().ToString() + " " + g2[i].GetFamily().ToString());
+            for (int i = 0; i < g3.Count; i++)
+                listBox3.Items.Add(g3[i].GetNumber().ToString() + " " + g3[i].GetFamily().ToString());
+            for (int i = 0; i < g4.Count; i++)
+                listBox4.Items.Add(g4[i].GetNumber().ToString() + " " + g4[i].GetFamily().ToString());
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text += refe.CurrentPlayer().GetName() + " Reject \r\n";
-            if (refe.Rejected(refe.CurrentPlayer().GetHand().GetTile(0)))
+            if (refe.Rejected(refe.CurrentPlayer().GetHand()[0]))
             {
                 Draw();
                 textBox1.Text += refe.CurrentPlayer().GetName() + " Play Free " + refe.GetNumberFreeTile().ToString() + "\r\n";
