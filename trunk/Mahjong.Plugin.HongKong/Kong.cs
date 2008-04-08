@@ -6,10 +6,10 @@ using Mahjong.Core;
 
 namespace Mahjong.Referee.HongKong
 {
-    public class Pong : IRule
+    class Kong : IRule
     {
         private List<Player> m_players;
-        
+
         public List<Mahjong.Plugin.IReferee.m_rulepossibility> Execute(List<Player> players, Player current)
         {
             m_players = players;
@@ -28,7 +28,7 @@ namespace Mahjong.Referee.HongKong
                 if ((rejected.GetNumber() == ttmp.GetNumber()) && (rejected.GetFamily() == ttmp.GetFamily()))
                 {
                     rulepos.Group.Add(ttmp);
-                    if (rulepos.Group.Count == 2)
+                    if (rulepos.Group.Count == 3)
                         findrules.Add(rulepos);
                 }
             }
@@ -53,7 +53,7 @@ namespace Mahjong.Referee.HongKong
 
         public String GetName()
         {
-            return "Pong";
+            return "Kong";
         }
 
         public String GetDescription()

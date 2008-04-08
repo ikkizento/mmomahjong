@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kong.cs" />
     <Compile Include="Pong.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Referee.cs" />
