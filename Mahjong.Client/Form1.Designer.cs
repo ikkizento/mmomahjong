@@ -92,7 +92,7 @@ namespace Mahjong.Client
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(35, 243);
+            this.button2.Location = new System.Drawing.Point(449, 349);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(66, 24);
             this.button2.TabIndex = 6;
@@ -108,7 +108,6 @@ namespace Mahjong.Client
             this.button3.TabIndex = 7;
             this.button3.Text = "Pong";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -118,15 +117,14 @@ namespace Mahjong.Client
             this.button4.TabIndex = 8;
             this.button4.Text = "Pong";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(422, 243);
+            this.button5.Location = new System.Drawing.Point(452, 379);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(66, 24);
             this.button5.TabIndex = 9;
-            this.button5.Text = "Pong";
+            this.button5.Text = "Kong";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 

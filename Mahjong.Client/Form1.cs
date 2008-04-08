@@ -78,6 +78,19 @@ namespace Mahjong.Client
             {
                 Draw();
                 textBox1.Text += refe.CurrentPlayer().GetName() + " Play Free " + refe.GetNumberFreeTile().ToString() + "\r\n";
+                List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(refe.CurrentPlayer());
+                button2.Enabled = false;
+                button5.Enabled = false;
+                for (int i = 0; i < tmp.Count; i++)
+                {
+                    textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
+                    if (tmp[i].Rule.GetName() == "Pong")
+                        button2.Enabled = true;
+                    if (tmp[i].Rule.GetName() == "Kong")
+                        button5.Enabled = true;
+
+                }
+                   
             }
             else
             {
@@ -87,40 +100,12 @@ namespace Mahjong.Client
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(p1);
-            for (int i = 0; i < tmp.Count; i++)
-            {
-                textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
-            }
-        }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(p2);
-            for (int i = 0; i < tmp.Count; i++)
-            {
-                textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
-            }
-        
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(p2);
-            for (int i = 0; i < tmp.Count; i++)
-            {
-                textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
-            }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(p2);
-            for (int i = 0; i < tmp.Count; i++)
-            {
-                textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
-            }
+
         }
     }
 }
