@@ -73,6 +73,10 @@
       <Project>{5F828F0C-367C-4E8D-81C7-7A188FEF8321}</Project>
       <Name>Mahjong.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mahjong.Plugin.HongKong\Mahjong.Referee.HongKong.csproj">
+      <Project>{9A61DB9D-F65A-4DAD-B051-32297E7B89DB}</Project>
+      <Name>Mahjong.Referee.HongKong</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mahjong.Plugin\Mahjong.Plugin.Referee.csproj">
       <Project>{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}</Project>
       <Name>Mahjong.Plugin.Referee</Name>

@@ -57,16 +57,69 @@ namespace Mahjong.Client
                 listBox3.Items.Add(g3[i].GetNumber().ToString() + " " + g3[i].GetFamily().ToString());
             for (int i = 0; i < g4.Count; i++)
                 listBox4.Items.Add(g4[i].GetNumber().ToString() + " " + g4[i].GetFamily().ToString());
-
+            listBox1.Items.Add("");
+            listBox2.Items.Add("");
+            listBox3.Items.Add("");
+            listBox4.Items.Add("");
+            if (p1.GetRejected() != null)
+                listBox1.Items.Add(p1.GetRejected().GetNumber().ToString() + " " + p1.GetRejected().GetFamily().ToString());
+            if (p2.GetRejected() != null)
+                listBox2.Items.Add(p2.GetRejected().GetNumber().ToString() + " " + p2.GetRejected().GetFamily().ToString());
+            if (p3.GetRejected() != null)
+                listBox3.Items.Add(p3.GetRejected().GetNumber().ToString() + " " + p3.GetRejected().GetFamily().ToString());
+            if (p4.GetRejected() != null)
+                listBox4.Items.Add(p4.GetRejected().GetNumber().ToString() + " " + p4.GetRejected().GetFamily().ToString());
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text += refe.CurrentPlayer().GetName() + " Reject \r\n";
-            if (refe.Rejected(refe.CurrentPlayer().GetHand()[0]))
+            if (refe.Rejected(refe.CurrentPlayer().GetHand()[listBox1.SelectedIndex]))
             {
                 Draw();
                 textBox1.Text += refe.CurrentPlayer().GetName() + " Play Free " + refe.GetNumberFreeTile().ToString() + "\r\n";
+            }
+            else
+            {
+                MessageBox.Show("Game is done");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(p1);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(p2);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
+            }
+        
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(p2);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(p2);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                textBox1.Text += tmp[i].Rule.GetName() + " : " + tmp[i].Player.GetName();
             }
         }
     }

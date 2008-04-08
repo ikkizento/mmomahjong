@@ -16,7 +16,7 @@ namespace Mahjong.Core
         private Group m_hand = new Group();
         private Group m_cemetery = new Group();
         private Group m_exposed = new Group();
-        private Tile m_rejected;
+        private Tile m_rejected = null;
         private int m_position;
         private String m_name;
         
