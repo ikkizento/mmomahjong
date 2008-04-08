@@ -21,9 +21,17 @@ namespace Mahjong.Plugin
             public Tile Tile;
         }
 
+        public struct m_rulepossibility
+        {
+            public Group Group;
+            public IRule Rule;
+            public Player Player;
+        }
+
         protected Player m_current;
         protected List<Player> m_players = new List<Player>();
         protected List<m_stile> m_tiles;
+        protected List<IRule> m_rules = new List<IRule>();
 
         protected virtual void GenerateTiles()
         {
@@ -176,6 +184,11 @@ namespace Mahjong.Plugin
             return true;
         }
 
+        public bool CallRule(IRule rule)
+        {
+            return true;
+        }
+
         protected bool SetPlayerPosition()
         {
             for (int i = 0; i < m_players.Count; i++)
@@ -203,7 +216,7 @@ namespace Mahjong.Plugin
         /// Who is the next player
         /// </summary>
         /// <returns></returns>
-        private Player NextPlayer()
+        private Player GetNextPlayer()
         {
             int idx = m_players.IndexOf(m_current);
             idx++;
@@ -212,7 +225,18 @@ namespace Mahjong.Plugin
             return m_players[idx];
         }
 
+        private Player GetPreviousPlayer()
+        {
+            int idx = m_players.IndexOf(m_current);
+            idx--;
+            if (idx == -1)
+                idx = m_players.Count - 1;
+            return m_players[idx];
+        }
+
         public abstract String GetName();
+
+        public abstract List<m_rulepossibility> GetRulesPossibilities(Player player);
 
         public abstract String GetDescription();
 
@@ -240,8 +264,10 @@ namespace Mahjong.Plugin
         public bool Rejected(Tile t)
         {
             m_current.GetHand().Remove(t);
+            m_current.AddRejected(t);
             ChangeTileStatus(t, TilePosition.Rejected);
-            m_current = NextPlayer();
+            GetPreviousPlayer().AddRejected(null);
+            m_current = GetNextPlayer();
             int ti = GetIndexFreeTile();
 
             if (ti == -1)
