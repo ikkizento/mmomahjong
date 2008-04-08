@@ -13,11 +13,22 @@ namespace Mahjong.Core
             West,
             Est
         }
-        private Group m_hand;
-        private Group m_cemetery;
-        private Group m_exposed;
+        private Group m_hand = new Group();
+        private Group m_cemetery = new Group();
+        private Group m_exposed = new Group();
         private Tile m_rejected;
-        private Position m_position;
+        private int m_position;
+        private String m_name;
+        
+        public Player(String name)
+        {
+            m_name = name;
+        }
+
+        public String GetName()
+        {
+            return m_name;
+        }
 
         public Group GetHand()
         {
@@ -57,9 +68,15 @@ namespace Mahjong.Core
             m_rejected = add;
             return true;
         }
-        public Position GetPosition()
+        public int GetPosition()
         {
             return m_position;
+        }
+
+        public bool SetPosition(int p)
+        {
+            m_position = p;
+            return true;
         }
 
         public void Reset()

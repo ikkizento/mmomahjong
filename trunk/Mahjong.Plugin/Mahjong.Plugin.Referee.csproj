@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5F828F0C-367C-4E8D-81C7-7A188FEF8321}</ProjectGuid>
+    <ProjectGuid>{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mahjong.Core</RootNamespace>
-    <AssemblyName>Mahjong.Core</AssemblyName>
+    <RootNamespace>Mahjong.Plugin.Referee</RootNamespace>
+    <AssemblyName>Mahjong.Plugin.Referee</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,11 +33,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board.cs" />
-    <Compile Include="Group.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Tile.cs" />
+    <Compile Include="IReferee.cs" />
+    <Compile Include="IRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mahjong.Core\Mahjong.Core.csproj">
+      <Project>{5F828F0C-367C-4E8D-81C7-7A188FEF8321}</Project>
+      <Name>Mahjong.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

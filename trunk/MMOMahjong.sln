@@ -3,6 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahjong.Core", "Mahjong.Core\Mahjong.Core.csproj", "{5F828F0C-367C-4E8D-81C7-7A188FEF8321}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahjong.Plugin.Referee", "Mahjong.Plugin\Mahjong.Plugin.Referee.csproj", "{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahjong.Referee.HongKong", "Mahjong.Plugin.HongKong\Mahjong.Referee.HongKong.csproj", "{9A61DB9D-F65A-4DAD-B051-32297E7B89DB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5F828F0C-367C-4E8D-81C7-7A188FEF8321} = {5F828F0C-367C-4E8D-81C7-7A188FEF8321}
+		{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68} = {CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahjong.Client", "Mahjong.Client\Mahjong.Client.csproj", "{99FE8124-AEF5-48A8-A8A3-72B53EFE3B41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +23,18 @@ Global
 		{5F828F0C-367C-4E8D-81C7-7A188FEF8321}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F828F0C-367C-4E8D-81C7-7A188FEF8321}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F828F0C-367C-4E8D-81C7-7A188FEF8321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A61DB9D-F65A-4DAD-B051-32297E7B89DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A61DB9D-F65A-4DAD-B051-32297E7B89DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A61DB9D-F65A-4DAD-B051-32297E7B89DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A61DB9D-F65A-4DAD-B051-32297E7B89DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99FE8124-AEF5-48A8-A8A3-72B53EFE3B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99FE8124-AEF5-48A8-A8A3-72B53EFE3B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99FE8124-AEF5-48A8-A8A3-72B53EFE3B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99FE8124-AEF5-48A8-A8A3-72B53EFE3B41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
