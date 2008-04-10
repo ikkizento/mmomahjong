@@ -13,10 +13,10 @@ namespace Mahjong.Client
     public partial class Form1 : Form
     {
         IReferee refe;
-        Player p1;
-        Player p2;
-        Player p3;
-        Player p4;
+        PlayerData p1;
+        PlayerData p2;
+        PlayerData p3;
+        PlayerData p4;
 
         public Form1()
         {
@@ -27,13 +27,13 @@ namespace Mahjong.Client
         {
             Plugin p = new Plugin(Environment.CurrentDirectory);
             refe = p.GetReferees()[0];
-            p1 = new Player("Player 1");
+            p1 = new PlayerData("Player 1");
             refe.AddPlayer(p1);
-            p2 = new Player("Player 2");
+            p2 = new PlayerData("Player 2");
             refe.AddPlayer(p2);
-            p3 = new Player("Player 3");
+            p3 = new PlayerData("Player 3");
             refe.AddPlayer(p3);
-            p4 = new Player("Player 4");
+            p4 = new PlayerData("Player 4");
             refe.AddPlayer(p4);
             refe.NewGame();
             Draw();
@@ -92,20 +92,23 @@ namespace Mahjong.Client
                 }
                    
             }
-            else
-            {
-                MessageBox.Show("Game is done");
-            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            List<Mahjong.Plugin.IReferee.m_rulepossibility> tmp = refe.GetRulesPossibilities(refe.CurrentPlayer());
+            refe.Call(tmp[0]);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            refe.Take();
+            Draw();
         }
     }
 }

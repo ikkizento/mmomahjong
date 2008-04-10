@@ -8,12 +8,12 @@ namespace Mahjong.Core
 {
     class Board
     {
-        List<Player> m_players = new List<Player>();
+        List<PlayerData> m_players = new List<PlayerData>();
         //IReferee m_referee;
 
         public bool AddPlayer(String name)
         {
-            Player ins = new Player(name);
+            PlayerData ins = new PlayerData(name);
             m_players.Add(ins);
             return true;
         }

@@ -7,7 +7,7 @@ namespace Mahjong.Plugin
 {
     public interface IRule
     {
-        List<Mahjong.Plugin.IReferee.m_rulepossibility> Execute(List<Player> players, Player current);
+        List<Mahjong.Plugin.IReferee.m_rulepossibility> Execute(List<PlayerData> players, PlayerData current);
 
         int GetScore();
 

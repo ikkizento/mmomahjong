@@ -25,14 +25,15 @@ namespace Mahjong.Plugin
         {
             public Group Group;
             public IRule Rule;
-            public Player Player;
+            public PlayerData Player;
         }
 
-        protected Player m_current;
-        protected List<Player> m_players = new List<Player>();
+        protected PlayerData m_current;
+        protected List<PlayerData> m_players = new List<PlayerData>();
         protected List<m_stile> m_tiles;
         protected List<IRule> m_rules = new List<IRule>();
 
+        private bool m_mutextaken;
         protected virtual void GenerateTiles()
         {
             Mahjong.Core.Tile.Family family = Tile.Family.Circle;
@@ -127,7 +128,7 @@ namespace Mahjong.Plugin
             }
         }
 
-        private int GetIndexFreeTile()
+        protected int GetIndexFreeTile()
         {
             for (int j = 0; j < m_tiles.Count; j++)
             {
@@ -153,7 +154,19 @@ namespace Mahjong.Plugin
             m_tiles = new List<m_stile>();
         }
 
-        public bool NewGame(List<Player> players)
+        protected Tile GetNewTile()
+        {
+            int ti = GetIndexFreeTile();
+
+            // End of game no tile left
+            if (ti == -1)
+                throw new EndGameException();
+
+            ChangeTileStatus(m_tiles[ti].Tile, TilePosition.Player);
+            return m_tiles[ti].Tile;
+        }
+
+        public bool NewGame(List<PlayerData> players)
         {
             Reset();
             GenerateTiles();
@@ -162,9 +175,7 @@ namespace Mahjong.Plugin
             m_current = m_players[0];
             m_players = players;
             SetPlayerPosition();
-            int ti = GetIndexFreeTile();
-            ChangeTileStatus(m_tiles[ti].Tile, TilePosition.Player);
-            m_current.AddHand(m_tiles[ti].Tile);
+
             return true;
         }
 
@@ -178,14 +189,7 @@ namespace Mahjong.Plugin
             DistributeTitles();
             m_current = m_players[0];
             SetPlayerPosition();
-            int ti = GetIndexFreeTile();
-            ChangeTileStatus(m_tiles[ti].Tile, TilePosition.Player);
-            m_current.AddHand(m_tiles[ti].Tile);
-            return true;
-        }
 
-        public bool CallRule(IRule rule)
-        {
             return true;
         }
 
@@ -198,7 +202,7 @@ namespace Mahjong.Plugin
             return true;
         }
 
-        public bool AddPlayer(Player ins)
+        public bool AddPlayer(PlayerData ins)
         {
             m_players.Add(ins);
             return true;
@@ -210,13 +214,11 @@ namespace Mahjong.Plugin
             
         }
 
-        public abstract Mahjong.Core.Player.Position HasWin();
-
         /// <summary>
         /// Who is the next player
         /// </summary>
         /// <returns></returns>
-        private Player GetNextPlayer()
+        private PlayerData GetNextPlayer()
         {
             int idx = m_players.IndexOf(m_current);
             idx++;
@@ -225,7 +227,7 @@ namespace Mahjong.Plugin
             return m_players[idx];
         }
 
-        private Player GetPreviousPlayer()
+        private PlayerData GetPreviousPlayer()
         {
             int idx = m_players.IndexOf(m_current);
             idx--;
@@ -236,16 +238,31 @@ namespace Mahjong.Plugin
 
         public abstract String GetName();
 
-        public abstract List<m_rulepossibility> GetRulesPossibilities(Player player);
+        public List<m_rulepossibility> GetRulesPossibilities(PlayerData player)
+        {
+            List<m_rulepossibility> ins = new List<m_rulepossibility>();
+
+            for (int i = 0; i < m_rules.Count; i++)
+            {
+                List<m_rulepossibility> tmp = m_rules[i].Execute(m_players, player);
+                for (int j = 0; j < tmp.Count; j++)
+                    ins.Add(tmp[j]);
+            }
+
+            return ins;
+        }
+
+        public abstract bool Call(m_rulepossibility rulepos);
+
 
         public abstract String GetDescription();
 
-        public Player CurrentPlayer()
+        public PlayerData CurrentPlayer()
         {
             return m_current;
         }
 
-        private bool ChangeTileStatus(Tile t, TilePosition tp)
+        protected bool ChangeTileStatus(Tile t, TilePosition tp)
         {
             for (int i = 0; i < m_tiles.Count; i++)
             {
@@ -261,21 +278,46 @@ namespace Mahjong.Plugin
 
         }
 
+        protected TilePosition GetTilePosition(Tile t)
+        {
+            for (int i = 0; i < m_tiles.Count; i++)
+                if (m_tiles[i].Tile == t)
+                    return m_tiles[i].Position;
+            return TilePosition.Cemetery;
+        }
+
         public bool Rejected(Tile t)
         {
+            if (m_mutextaken == false)
+                return false;
+            m_mutextaken = true;
             m_current.GetHand().Remove(t);
             m_current.AddRejected(t);
             ChangeTileStatus(t, TilePosition.Rejected);
             GetPreviousPlayer().AddRejected(null);
             m_current = GetNextPlayer();
-            int ti = GetIndexFreeTile();
 
-            if (ti == -1)
-                return false;
-
-            ChangeTileStatus(m_tiles[ti].Tile, TilePosition.Player);
-            m_current.AddHand(m_tiles[ti].Tile);
             return true;
+        }
+
+        public Tile Take()
+        {
+            if (m_mutextaken == true)
+                return null;
+            try
+            {
+                Tile tmp = GetNewTile();
+                m_current.AddHand(tmp);
+                m_mutextaken = true;
+                if (GetTilePosition(GetPreviousPlayer().GetRejected()) == TilePosition.Player)
+                    ChangeTileStatus(GetPreviousPlayer().GetRejected(), TilePosition.Cemetery);
+                return tmp;
+            }
+            catch (EndGameException edg)
+            {
+                ///
+            }
+            return null;
         }
     }
 }

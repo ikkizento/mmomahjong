@@ -27,23 +27,29 @@ namespace Mahjong.Referee.HongKong
             return "lala toto";
         }
 
-        public override Mahjong.Core.Player.Position HasWin()
+        public override bool Call(m_rulepossibility rulepos)
         {
-            return Mahjong.Core.Player.Position.Est;
-        }
-
-        public override List<m_rulepossibility> GetRulesPossibilities(Player player)
-        {
-            List<m_rulepossibility> ins = new List<m_rulepossibility>();
-
-            for (int i = 0; i < m_rules.Count; i++)
+            List<m_rulepossibility> ins = rulepos.Rule.Execute(m_players, rulepos.Player);
+            if (ins.Count > 0)
             {
-                List<m_rulepossibility> tmp = m_rules[i].Execute(m_players, player);
-                for (int j = 0; j < tmp.Count; j++)
-                    ins.Add(tmp[j]);
+                for (int i = 0; i < ins.Count; i++)
+                {
+                    if (ins[i].Group.Equal(rulepos.Group))
+                    {
+                        for (int j = 0; j < ins[i].Group.Count; j++)
+                        {
+                            rulepos.Player.AddExposed(ins[i].Group[j]);
+                            rulepos.Player.RemoveHand(ins[i].Group[j]);
+                        }
+                        m_current = rulepos.Player;
+
+                        Take();
+                        return true;
+                    }
+                }
             }
 
-            return ins;
+            return false;
         }
     }
 }
