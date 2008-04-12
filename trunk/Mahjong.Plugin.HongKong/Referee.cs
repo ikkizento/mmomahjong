@@ -19,12 +19,17 @@ namespace Mahjong.Referee.HongKong
 
         public override String GetName()
         {
-            return "HongKong";
+            return "Hong Kong";
         }
 
         public override String GetDescription()
         {
             return "lala toto";
+        }
+
+        public override int GetMaxPlayer()
+        {
+            return 4;
         }
 
         public override bool Call(m_rulepossibility rulepos)

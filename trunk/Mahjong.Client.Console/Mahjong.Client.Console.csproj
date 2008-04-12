@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9F0B852E-33B0-4A06-AFFD-3C6A94A5D978}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{BF5F309C-96D5-4FAE-9BB6-C3BDCB71F69B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mahjong.Plugin.Player</RootNamespace>
-    <AssemblyName>Mahjong.Plugin.Player</AssemblyName>
+    <RootNamespace>Mahjong.Client.Console</RootNamespace>
+    <AssemblyName>Mahjong.Client.Console</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,14 +30,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPlayer.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahjong.Core\Mahjong.Core.csproj">
@@ -47,6 +44,10 @@
     <ProjectReference Include="..\Mahjong.Library.Network\Lidgren.Library.Network.csproj">
       <Project>{D4592CBE-B347-4770-989A-D6FA47C5B191}</Project>
       <Name>Lidgren.Library.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mahjong.Plugin.Player\Mahjong.Plugin.Player.csproj">
+      <Project>{9F0B852E-33B0-4A06-AFFD-3C6A94A5D978}</Project>
+      <Name>Mahjong.Plugin.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

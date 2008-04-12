@@ -6,13 +6,6 @@ namespace Mahjong.Core
 {
     public class PlayerData
     {
-        public enum Position
-        {
-            North,
-            South,
-            West,
-            Est
-        }
 
         private Group m_hand = new Group();
         private Group m_cemetery = new Group();
@@ -29,6 +22,11 @@ namespace Mahjong.Core
         public String GetName()
         {
             return m_name;
+        }
+
+        public void SetName(String name)
+        {
+            m_name = name;
         }
 
         public Group GetHand()

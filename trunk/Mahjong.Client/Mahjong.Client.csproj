@@ -36,23 +36,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugin.cs" />
+    <Compile Include="MakeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MakeForm.Designer.cs">
+      <DependentUpon>MakeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="LoginForm.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Form1.cs</DependentUpon>
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MakeForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MakeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoomForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RoomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoomListForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RoomListForm.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -67,19 +85,27 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="RoomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RoomForm.Designer.cs">
+      <DependentUpon>RoomForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RoomListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RoomListForm.Designer.cs">
+      <DependentUpon>RoomListForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahjong.Core\Mahjong.Core.csproj">
       <Project>{5F828F0C-367C-4E8D-81C7-7A188FEF8321}</Project>
       <Name>Mahjong.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mahjong.Plugin.HongKong\Mahjong.Referee.HongKong.csproj">
-      <Project>{9A61DB9D-F65A-4DAD-B051-32297E7B89DB}</Project>
-      <Name>Mahjong.Referee.HongKong</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mahjong.Plugin\Mahjong.Plugin.Referee.csproj">
-      <Project>{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}</Project>
-      <Name>Mahjong.Plugin.Referee</Name>
+    <ProjectReference Include="..\Mahjong.Plugin.Player\Mahjong.Plugin.Player.csproj">
+      <Project>{9F0B852E-33B0-4A06-AFFD-3C6A94A5D978}</Project>
+      <Name>Mahjong.Plugin.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
