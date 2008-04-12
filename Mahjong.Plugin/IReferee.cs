@@ -166,14 +166,29 @@ namespace Mahjong.Plugin
             return m_tiles[ti].Tile;
         }
 
+        public Tile GetTile(String family, int number)
+        {
+            for (int j = 0; j < m_tiles.Count; j++)
+            {
+                if ((m_tiles[j].Tile.GetFamily().ToString() == family) && (m_tiles[j].Tile.GetNumber() == number))
+                {
+                    return m_tiles[j].Tile;
+                }
+            }
+            return null;
+        }
+
         public bool NewGame(List<PlayerData> players)
         {
+            if (players.Count == 0)
+                return false;
             Reset();
+            m_players = players;
             GenerateTiles();
             RandomizeTitles();
             DistributeTitles();
             m_current = m_players[0];
-            m_players = players;
+            
             SetPlayerPosition();
 
             return true;
@@ -238,6 +253,8 @@ namespace Mahjong.Plugin
 
         public abstract String GetName();
 
+        public abstract int GetMaxPlayer();
+
         public List<m_rulepossibility> GetRulesPossibilities(PlayerData player)
         {
             List<m_rulepossibility> ins = new List<m_rulepossibility>();
@@ -290,7 +307,7 @@ namespace Mahjong.Plugin
         {
             if (m_mutextaken == false)
                 return false;
-            m_mutextaken = true;
+            m_mutextaken = false;
             m_current.GetHand().Remove(t);
             m_current.AddRejected(t);
             ChangeTileStatus(t, TilePosition.Rejected);
