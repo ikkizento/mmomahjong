@@ -430,7 +430,7 @@ namespace Mahjong.Server
                 for (int j = 0; j < tmp.Group.Count; j++)
                 {
                     netmsg += ":" + tmp.Group[j].GetFamily() + ":" + tmp.Group[j].GetNumber().ToString();
-                    p.Send("TIL:REMOVE:" + tab[2] + ":" + tab[3]);
+                    p.Send("TIL:REMOVE:" + tmp.Group[j].GetFamily() + ":" + tmp.Group[j].GetNumber().ToString());
 
                 }
                 p.CurrentRoom.Send(netmsg, null);

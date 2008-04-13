@@ -106,6 +106,7 @@ namespace Mahjong.Client
         protected override bool OnGetTile(string family, int number)
         {
             m_roomform.listBox2.Items.Add(family + " " + number.ToString());
+            m_roomform.listBox2.Sorted = true;
             m_roomform.listBox4.Items.Clear();
             return true;
         }
