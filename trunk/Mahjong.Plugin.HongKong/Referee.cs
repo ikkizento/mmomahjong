@@ -15,6 +15,7 @@ namespace Mahjong.Referee.HongKong
         {
             m_rules.Add(new Pong());
             m_rules.Add(new Kong());
+            m_rules.Add(new Chow());
         }
 
         public override String GetName()
