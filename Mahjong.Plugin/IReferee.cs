@@ -26,6 +26,16 @@ namespace Mahjong.Plugin
             public Group Group;
             public IRule Rule;
             public PlayerData Player;
+            public bool Equal(m_rulepossibility tmp)
+            {
+                if (Player != tmp.Player)
+                    return false;
+                if (Rule != tmp.Rule)
+                    return false;
+                if (Group.Equal(tmp.Group) == false)
+                    return false;
+                return true;
+            }
         }
 
         protected PlayerData m_current;
@@ -251,6 +261,16 @@ namespace Mahjong.Plugin
             return m_players[idx];
         }
 
+        public Tile GetRejectTile()
+        {
+            for (int i = 0; i < m_players.Count; i++)
+            {
+                if (m_players[i].GetRejected() != null)
+                    return m_players[i].GetRejected();
+            }
+            return null;
+        }
+
         public abstract String GetName();
 
         public abstract int GetMaxPlayer();
@@ -334,6 +354,17 @@ namespace Mahjong.Plugin
             {
                 ///
             }
+            return null;
+        }
+
+        public IRule GetRuleByName(string p)
+        {
+            for (int i = 0; i < m_rules.Count; i++)
+            {
+                if (m_rules[i].GetName() == p)
+                    return m_rules[i];
+            }
+
             return null;
         }
     }

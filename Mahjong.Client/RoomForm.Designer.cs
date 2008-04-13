@@ -35,12 +35,11 @@ namespace Mahjong.Client
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
+            this.listBox4 = new System.Windows.Forms.ListBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -107,42 +106,6 @@ namespace Mahjong.Client
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(255, 270);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(53, 23);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Chow";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(314, 270);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(53, 23);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "Pong";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(187, 270);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(62, 23);
-            this.button6.TabIndex = 9;
-            this.button6.Text = "Kong";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(373, 270);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(60, 23);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "Mahjong";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -162,17 +125,44 @@ namespace Mahjong.Client
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // listBox4
+            // 
+            this.listBox4.FormattingEnabled = true;
+            this.listBox4.Location = new System.Drawing.Point(187, 270);
+            this.listBox4.Name = "listBox4";
+            this.listBox4.Size = new System.Drawing.Size(246, 43);
+            this.listBox4.TabIndex = 13;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(187, 319);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(246, 23);
+            this.button4.TabIndex = 14;
+            this.button4.Text = "Call";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(12, 316);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(142, 23);
+            this.button5.TabIndex = 15;
+            this.button5.Text = "Quit";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // RoomForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 300);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
+            this.ClientSize = new System.Drawing.Size(438, 351);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
+            this.Controls.Add(this.listBox4);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listBox3);
             this.Controls.Add(this.listBox2);
@@ -183,6 +173,8 @@ namespace Mahjong.Client
             this.Name = "RoomForm";
             this.Text = "RoomForm";
             this.Load += new System.EventHandler(this.RoomForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RoomForm_FormClosed);
+            this.Leave += new System.EventHandler(this.RoomForm_Leave);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,14 +186,13 @@ namespace Mahjong.Client
         public System.Windows.Forms.ListBox listBox1;
         public System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
         public System.Windows.Forms.ListBox listBox2;
         public System.Windows.Forms.ListBox listBox3;
         public System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button8;
+        public System.Windows.Forms.Button button3;
+        public System.Windows.Forms.Button button8;
+        public System.Windows.Forms.Button button4;
+        public System.Windows.Forms.ListBox listBox4;
+        private System.Windows.Forms.Button button5;
     }
 }

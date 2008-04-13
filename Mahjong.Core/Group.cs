@@ -13,10 +13,10 @@ namespace Mahjong.Core
                 return false;
             for (int i = 0; i < this.Count; i++)
             {
-                if (this[i] != tiles[i])
-                return false;
+                if ((this[i].GetFamily() == tiles[i].GetFamily()) && (this[i].GetNumber() == tiles[i].GetNumber()))
+                return true;
             }
-            return true;
+            return false;
         }
 
     }

@@ -48,7 +48,7 @@ namespace Mahjong.Referee.HongKong
                         }
                         m_current = rulepos.Player;
 
-                        Take();
+                        //Take();
                         return true;
                     }
                 }

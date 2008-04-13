@@ -44,25 +44,29 @@ namespace Mahjong.Server
                 new GetMessages("ROM", new GetMessage(GetMessageROM)), 
                 //Tile 
                 new GetMessages("TIL", new GetMessage(GetMessageTIL)), 
+                //Receive Call a Rule
+                new GetMessages("CAL", new GetMessage(GetMessageCAL)), 
             };
         }
-
 
         MMOServer(int port)
         {
             m_plugin = new Plugin(Environment.CurrentDirectory);
 
             Init();
-            NetAppConfiguration config = new NetAppConfiguration("multi");
-            config.MaximumConnections = 1024;
+            NetAppConfiguration config = new NetAppConfiguration("MMO Mahjong", port);
+            config.MaximumConnections = 128;
             config.Port = port;
             config.ServerName = Environment.MachineName + " server";
 
             m_log = new NetLog();
+            m_log.IgnoreTypes = NetLogEntryTypes.None;
             m_log.LogEvent += new EventHandler<NetLogEventArgs>(OnLogEvent);
 
             Server = new NetServer(config, m_log);
             Server.StatusChanged += new EventHandler<NetStatusEventArgs>(OnStatusChange);
+
+            Server.ConnectionRequest += new EventHandler<NetConnectRequestEventArgs>(OnConnectionRequest);
 
             while (true)
             {
@@ -76,27 +80,54 @@ namespace Mahjong.Server
             }
         }
 
+        void OnConnectionRequest(object sender, NetConnectRequestEventArgs e)
+        {
+            // At this point we can approve or deny the incoming connection like this: 
+            //
+            // e.MayConnect = true;
+            // e.DenialReason = "Sorry, no lamers!";
+            //
+            // ... possibly depending on the content of e.CustomData which the client
+            // specifies when calling Connect()
+        }
+
         void OnStatusChange(object sender, NetStatusEventArgs e)
         {
+            m_log.Info(e.Connection + ": " + e.Connection.Status + " - " + e.Reason);
             if (e.Connection.Status == NetConnectionStatus.Connected)
             {
-                NetMessage outMsg = new NetMessage();
-                outMsg.Write("MSG:Server:Welcome:0.01:" + m_players.Count);
-                Server.SendMessage(outMsg, e.Connection, NetChannel.Unreliable);
+                //NetMessage outMsg = new NetMessage();
+                //outMsg.Write("MSG:Server:Welcome:0.01:" + m_players.Count);
+                //Server.SendMessage(outMsg, e.Connection, NetChannel.Unreliable);
                 NetPlayer ins = new NetPlayer(e.Connection, "");
                 m_players.Add(ins);
                 Console.WriteLine("Client connected; " + Server.NumConnected + " of 100");
+
             }
+
             if (e.Connection.Status == NetConnectionStatus.Disconnected)
             {
-                HaveDeconnection = true;
-                RemoveDeconnectedPlayer();
+                //HaveDeconnection = true;
+                //RemoveDeconnectedPlayer();
+                for (int i = 0; i < m_players.Count; i++)
+                {
+                    NetPlayer tmp = m_players[i];
+                    if (tmp.PlayerConnection == e.Connection)
+                    {
+                        if (tmp.CurrentRoom != null)
+                        {
+                            tmp.CurrentRoom.Send("ROM:PLAYER:LEAVE:" + tmp.GetName(), null);
+                            tmp.CurrentRoom.RemovePlayer(tmp);
+                        }
+                        m_players.Remove(tmp);
+                    }
+                }
             }
         }
 
         void OnLogEvent(object sender, NetLogEventArgs e)
         {
-            Console.WriteLine(e.Entry.What);
+            //Console.WriteLine(e.Entry.What);
         }
 
         void HandleMessage(NetMessage msg)
@@ -106,12 +137,12 @@ namespace Mahjong.Server
             
             NetPlayer pltmp = GetPlayer(msg.Sender);
             Console.WriteLine("Client:" + str);
-            if (HaveDeconnection == true)
-            {
-                RemoveDeconnectedPlayer();
-                HaveDeconnection = false;
-            }
-            
+            //if (HaveDeconnection == true)
+            //{
+            //    RemoveDeconnectedPlayer();
+            //    HaveDeconnection = false;
+            //}
+
             for (int i = 0; i < OpCodes.Length; i++)
             {
                 if (tab[0] == OpCodes[i].OpCode)
@@ -156,12 +187,12 @@ namespace Mahjong.Server
                 NetPlayer tmp = m_players[i];
                 if (tmp.PlayerConnection.Status == NetConnectionStatus.Disconnected)
                 {
-                    m_players.Remove(tmp);
                     if (tmp.CurrentRoom != null)
                     {
                         tmp.CurrentRoom.Send("ROM:PLAYER:LEAVE:" + tmp.GetName(), null);
                         tmp.CurrentRoom.RemovePlayer(tmp);
                     }
+                    m_players.Remove(tmp);
                 }
             }
         }
@@ -222,7 +253,9 @@ namespace Mahjong.Server
                 {
                     NetPlayer tmpp = tmp.GetPlayer(i);
                     p.Send("ROM:PLAYER:ADD:" + tmpp.GetName());
+                
                 }
+                p.CurrentRoom.Send("ROM:PLAYER:ADD:" + p.GetName(), p);
                 List<IReferee> plugins = m_plugin.GetReferees();
                 for (int i = 0; i < plugins.Count; i++)
                 {
@@ -237,11 +270,8 @@ namespace Mahjong.Server
             if (tab[1] == "LEAVE")
             {
                 Room tmp = p.CurrentRoom;
-                for (int i = 0; i < tmp.GetPlayer(); i++)
-                {
-                    NetPlayer tmpp = tmp.GetPlayer(i);
-                    tmpp.Send("ROM:PLAYER:LEAVE:" + tmpp.GetName());
-                }
+
+                tmp.Send("ROM:PLAYER:LEAVE:" + p.GetName(), null);
                 tmp.RemovePlayer(p);
             }
 
@@ -258,7 +288,7 @@ namespace Mahjong.Server
                 if (iref != null)
                 {
                     tmp.AddReferee(iref);
-                    p.Send("ROM:REFEREE:SELECTED:" + tmp.GetReferee().GetName());
+                    p.CurrentRoom.Send("ROM:REFEREE:SELECTED:" + tmp.GetReferee().GetName(), null);
                 }
                 else
                     p.Send("ROM:REFEREE:KO");
@@ -267,6 +297,11 @@ namespace Mahjong.Server
             if (tab[1] == "START")
             {
                 // Make PlayerData List
+                if (p.CurrentRoom.GetReferee() == null)
+                {
+                    p.Send("ROM:START:KO");
+                    return true;
+                }
                 Room tmp = p.CurrentRoom;
                 List<PlayerData> ltmp = new List<PlayerData>();
 
@@ -300,13 +335,20 @@ namespace Mahjong.Server
             Room tmp = p.CurrentRoom;
             NetPlayer ntmp = (NetPlayer)tmp.GetReferee().CurrentPlayer();
 
-            return tmp.Send("TRN:" + ntmp.GetName(), null);
+            tmp.Send("TRN:" + ntmp.GetName(), null);
+            return true;
         }
 
         private bool GetMessageTIL(NetPlayer p, String[] tab, NetMessage msg, ref String DiconnectionReason)
         {
             if (tab[1] == "TAKE")
             {
+                if (p != p.CurrentRoom.GetReferee().CurrentPlayer())
+                {
+                    p.Send("TIL:TAKE:KO");
+                    return true;
+                }
+
                 Tile t = p.CurrentRoom.GetReferee().Take();
 
                 if (t == null)
@@ -327,9 +369,82 @@ namespace Mahjong.Server
                 {
                     p.Send("TIL:REMOVE:" + tab[2] + ":" + tab[3]);
                     p.CurrentRoom.Send("TIL:REMOVED:" + p.GetName() + ":" + tab[2] + ":" + tab[3], null);
+                    // Check Rules possibilities
+                    Room tmp = p.CurrentRoom;
+                    for (int i = 0; i < tmp.GetPlayer(); i++)
+                    {
+                        SendPosibilities(tmp.GetPlayer(i));
+                    }
+                    
                     SendTurn(p);
                 }
             }
+            return true;
+        }
+
+        private bool SendPosibilities(NetPlayer p)
+        {
+            List<Mahjong.Plugin.IReferee.m_rulepossibility> lpos = p.CurrentRoom.GetReferee().GetRulesPossibilities(p);
+            for (int i = 0; i < lpos.Count; i++)
+            {
+                String netmsg;
+                Mahjong.Plugin.IReferee.m_rulepossibility rp = lpos[i];
+                netmsg = "RUL:" + rp.Rule.GetName();
+                for (int j = 0; j < rp.Group.Count; j++)
+                {
+                    netmsg += ":" + rp.Group[j].GetFamily() + ":" + rp.Group[j].GetNumber().ToString();
+                }
+                p.Send(netmsg);
+            }
+
+            return true;
+        }
+
+        private bool GetMessageCAL(NetPlayer p, String[] tab, NetMessage msg, ref String DiconnectionReason)
+        {
+            List<Mahjong.Plugin.IReferee.m_rulepossibility> lpos = p.CurrentRoom.GetReferee().GetRulesPossibilities(p);
+
+            Mahjong.Plugin.IReferee.m_rulepossibility tmp = new IReferee.m_rulepossibility();
+
+            tmp.Player = p;
+            tmp.Rule = p.CurrentRoom.GetReferee().GetRuleByName(tab[1]);
+            tmp.Group = new Group();
+
+            for (int i = 2; i < tab.Length; )
+            {
+                Tile ins = p.CurrentRoom.GetReferee().GetTile(tab[i], Convert.ToInt32(tab[i + 1]));
+
+                tmp.Group.Add(ins);
+                i += 2;
+            }
+
+            //for (int i = 0; i < lpos.Count; i++)
+            //{
+            //    Mahjong.Plugin.IReferee.m_rulepossibility rptmp = lpos[i];
+            //    if (rptmp.Equal(tmp) == true)
+            //    {
+            if (p.CurrentRoom.GetReferee().Call(tmp) == true)
+            {
+                //p.Send("CAL:OK");
+                String netmsg = "CAL:" + p.GetName();
+                for (int j = 0; j < tmp.Group.Count; j++)
+                {
+                    netmsg += ":" + tmp.Group[j].GetFamily() + ":" + tmp.Group[j].GetNumber().ToString();
+                    p.Send("TIL:REMOVE:" + tab[2] + ":" + tab[3]);
+
+                }
+                p.CurrentRoom.Send(netmsg, null);
+
+                p.CurrentRoom.Send("TRN:" + p.CurrentRoom.GetReferee().CurrentPlayer().GetName(), null);
+
+            }
+            else
+            {
+                p.Send("CAL:KO");
+            }
+//                }
+
+ //           }
 
             return true;
         }

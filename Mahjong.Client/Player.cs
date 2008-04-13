@@ -106,7 +106,7 @@ namespace Mahjong.Client
         protected override bool OnGetTile(string family, int number)
         {
             m_roomform.listBox2.Items.Add(family + " " + number.ToString());
-
+            m_roomform.listBox4.Items.Clear();
             return true;
         }
 
@@ -117,8 +117,15 @@ namespace Mahjong.Client
             return true;
         }
 
+        //protected override bool OnRejectedTile(string family, int number)
+        //{
+        //    m_roomform.label1.Text = family + " " + number.ToString();
+        //    return true;
+        //}
+
         protected override bool OnRemovedTile(string name, string family, int number)
         {
+            m_roomform.label1.Text = family + " " + number.ToString();
             return true;
         }
         protected override bool OnMyTurn()
@@ -129,6 +136,27 @@ namespace Mahjong.Client
 
         protected override bool OnTurn()
         {
+            return true;
+        }
+
+        protected override bool OnGetPosibility(RuleGroup rulegroup)
+        {
+            String tmp;
+
+            tmp = rulegroup.name;
+            for (int i = 0; i < rulegroup.Group.Count; i++)
+            {
+                tmp += " " + rulegroup.Group[i].family + " " + rulegroup.Group[i].number.ToString();
+            }
+            m_roomform.listBox4.Items.Add(tmp);
+
+            return true;
+        }
+
+        protected override bool OnRoomMeLeave()
+        {
+            m_roomform.Close();
+
             return true;
         }
     }
