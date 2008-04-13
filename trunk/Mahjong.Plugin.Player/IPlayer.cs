@@ -24,6 +24,19 @@ namespace Mahjong.Plugin.Player
             public String OpCode;
             public GetMessage Funct;
         }
+
+        public struct NetTile
+        {
+            public String family;
+            public int number;
+        }
+
+        public struct RuleGroup
+        {
+            public String name;
+            public List<NetTile> Group;
+        }
+
         private delegate bool GetMessage(String[] tab, NetMessage msg, ref String DiconnectionReason);
         GetMessages[] OpCodes;
 
@@ -41,12 +54,15 @@ namespace Mahjong.Plugin.Player
                 new GetMessages("TIL", new GetMessage(GetMessageTIL)), 
                 //Receive Tile
                 new GetMessages("TRN", new GetMessage(GetMessageTRN)), 
+                //Receive Rule posibilities
+                new GetMessages("RUL", new GetMessage(GetMessageRUL)), 
+
             };
         }
 
         public IPlayer(String dns, int port)
         {
-            NetAppConfiguration myConfig = new NetAppConfiguration("MMO Mahjong", port);
+            NetAppConfiguration myConfig = new NetAppConfiguration("MMO Mahjong");
 
             m_log = new NetLog();
             Init();
@@ -110,6 +126,12 @@ namespace Mahjong.Plugin.Player
             return Send("LOG:" + login + ":" + pass);
         }
 
+        public bool Disconnect()
+        {
+            m_client.Shutdown("");
+            return true;
+        }
+
         public bool CreateRoom(String name)
         {
             return Send("ROM:ADD:" + name);
@@ -140,12 +162,24 @@ namespace Mahjong.Plugin.Player
             return Send("TIL:TAKE");
         }
 
+        public bool Call(RuleGroup rg)
+        {
+            String netmsg;
+            netmsg = "CAL:" + rg.name;
+            for (int j = 0; j < rg.Group.Count; j++)
+            {
+                netmsg += ":" + rg.Group[j].family + ":" + rg.Group[j].number;
+            }
+            Send(netmsg);
+
+            return true;
+        }
+
         public bool RemoveTile(String family, int number)
         {
             return Send("TIL:REMOVE:" + family + ":" + Convert.ToInt32(number));
         }
         
-
         private bool GetMessageLOG(String[] tab, NetMessage msg, ref String DiconnectionReason)
         {
             if (tab[1] == "OK")
@@ -181,7 +215,12 @@ namespace Mahjong.Plugin.Player
                 if (tab[2] == "ADD")
                     OnRoomPlayerAdd(tab[3]);
                 if (tab[2] == "LEAVE")
-                    OnRoomPlayerLeave(tab[3]);
+                {
+                    if (tab[3] == m_login)
+                        OnRoomMeLeave();
+                    else
+                        OnRoomPlayerLeave(tab[3]);
+                }
             }
             if (tab[1] == "REFEREE")
             {
@@ -219,6 +258,7 @@ namespace Mahjong.Plugin.Player
             {
                 OnRemovedTile(tab[2],tab[3], Convert.ToInt32(tab[4]));
             }
+
             return true;
         }
 
@@ -232,6 +272,25 @@ namespace Mahjong.Plugin.Player
             
             return true;
         }
+        
+        private bool GetMessageRUL(String[] tab, NetMessage msg, ref String DiconnectionReason)
+        {
+            RuleGroup tmp = new RuleGroup();
+            tmp.Group = new List<NetTile>();
+            tmp.name = tab[1];
+            for (int i = 2; i < tab.Length; )
+            {
+                NetTile ins;
+                ins.family = tab[i];
+                ins.number = Convert.ToInt32(tab[i + 1]);
+                
+                tmp.Group.Add(ins);
+                i += 2;
+            }
+            OnGetPosibility(tmp);
+            return true;
+        }
+
 
         protected abstract bool OnMessage(String name, String msg);
         protected abstract bool OnLoginOK();
@@ -241,6 +300,7 @@ namespace Mahjong.Plugin.Player
         protected abstract bool OnRoomList(String name);
         protected abstract bool OnRoomJoin();
         protected abstract bool OnRoomLeave();
+        protected abstract bool OnRoomMeLeave();
         protected abstract bool OnRoomPlayerAdd(String name);
         protected abstract bool OnRoomPlayerLeave(String name);
         protected abstract bool OnRoomRefereeAdd(String name);
@@ -251,6 +311,7 @@ namespace Mahjong.Plugin.Player
         protected abstract bool OnRemovedTile(String name, String family, int number);
         protected abstract bool OnMyTurn();
         protected abstract bool OnTurn();
+        protected abstract bool OnGetPosibility(RuleGroup rulegroup);
 
     }
 }
