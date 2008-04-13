@@ -96,9 +96,9 @@ namespace Mahjong.Server
             m_log.Info(e.Connection + ": " + e.Connection.Status + " - " + e.Reason);
             if (e.Connection.Status == NetConnectionStatus.Connected)
             {
-                //NetMessage outMsg = new NetMessage();
-                //outMsg.Write("MSG:Server:Welcome:0.01:" + m_players.Count);
-                //Server.SendMessage(outMsg, e.Connection, NetChannel.Unreliable);
+                NetMessage outMsg = new NetMessage();
+                outMsg.Write("MSG:Server:Welcome:0.01:" + m_players.Count);
+                Server.SendMessage(outMsg, e.Connection, NetChannel.Unreliable);
                 NetPlayer ins = new NetPlayer(e.Connection, "");
                 m_players.Add(ins);
                 Console.WriteLine("Client connected; " + Server.NumConnected + " of 100");
