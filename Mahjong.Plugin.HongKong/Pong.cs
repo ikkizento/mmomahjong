@@ -62,7 +62,7 @@ namespace Mahjong.Referee.HongKong
 
         public String GetDescription()
         {
-            return "Dans ton cul";
+            return "Shot description of pong rule";
         }
     }
 }

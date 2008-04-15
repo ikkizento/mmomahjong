@@ -8,7 +8,7 @@ namespace Mahjong.Referee.HongKong
 {
     class Mahjongg : IRule
     {
-        enum e_type
+        public enum e_type
         {
             Single,
             Double,
@@ -17,8 +17,9 @@ namespace Mahjong.Referee.HongKong
             Kong
         };
 
-        struct s_type
+        public struct s_type
         {
+            public bool exposed;
             public e_type Type;
             public Group Group;
         }
@@ -42,12 +43,32 @@ namespace Mahjong.Referee.HongKong
                 gtmp.Add(ttmp);
 
             RecurMah(gtmp, new GroupType());
-            
+
+            AddExposed(current);
             // Analyse real Mahjong
 
             // Add Mahjong to findrules
             
             return findrules;
+        }
+
+        private void AddExposed(PlayerData p)
+        {
+            List<Group> tmp = p.GetExposed();
+            for (int i = 0; i < tmp.Count; i++)
+            {
+
+            }
+
+        }
+
+        private bool RemoveFalseMahjong()
+        {
+            for (int i = 0; i < m_results.Count; i++)
+            {
+
+            }
+            return true;
         }
 
         private bool RecurMah(Group hand, GroupType types)
@@ -73,6 +94,7 @@ namespace Mahjong.Referee.HongKong
                 insgtmp.Remove(kong[2]);
                 GroupType ttmp = CopyType(types);
                 s_type tmp = new s_type();
+                tmp.exposed = false;
                 tmp.Type = e_type.Kong;
                 tmp.Group = kong;
                 ttmp.Add(tmp);
@@ -91,6 +113,7 @@ namespace Mahjong.Referee.HongKong
                 insgtmp.Remove(pong[1]);
                 GroupType ttmp = CopyType(types);
                 s_type tmp = new s_type();
+                tmp.exposed = false;
                 tmp.Type = e_type.Pong;
                 tmp.Group = pong;
                 ttmp.Add(tmp);
@@ -109,6 +132,7 @@ namespace Mahjong.Referee.HongKong
                 insgtmp.Remove(chow1[1]);
                 GroupType ttmp = CopyType(types);
                 s_type tmp = new s_type();
+                tmp.exposed = false;
                 tmp.Type = e_type.Chow;
                 tmp.Group = chow1;
                 ttmp.Add(tmp);
@@ -123,6 +147,7 @@ namespace Mahjong.Referee.HongKong
                 insgtmp.Remove(chow2[1]);
                 GroupType ttmp = CopyType(types);
                 s_type tmp = new s_type();
+                tmp.exposed = false;
                 tmp.Type = e_type.Chow;
                 tmp.Group = chow2;
                 ttmp.Add(tmp);
@@ -137,6 +162,7 @@ namespace Mahjong.Referee.HongKong
                 insgtmp.Remove(chow3[1]);
                 GroupType ttmp = CopyType(types);
                 s_type tmp = new s_type();
+                tmp.exposed = false;
                 tmp.Type = e_type.Chow;
                 tmp.Group = chow3;
                 ttmp.Add(tmp);
@@ -154,6 +180,7 @@ namespace Mahjong.Referee.HongKong
                 insgtmp.Remove(doublee[0]);
                 GroupType ttmp = CopyType(types);
                 s_type tmp = new s_type();
+                tmp.exposed = false;
                 tmp.Type = e_type.Double;
                 tmp.Group = doublee;
                 ttmp.Add(tmp);
@@ -169,6 +196,7 @@ namespace Mahjong.Referee.HongKong
             {
                 GroupType ttmp = CopyType(types);
                 s_type tmp = new s_type();
+                tmp.exposed = false;
                 tmp.Type = e_type.Single;
                 tmp.Group = single;
                 ttmp.Add(tmp);
@@ -187,40 +215,6 @@ namespace Mahjong.Referee.HongKong
             ret.Add(tile);
             return ret;
         }
-
-        //private Group IsPong(Group hand, Tile tile)
-        //{
-        //    Group ret = new Group();
-        //    for (int i = 0; i < hand.Count; i++)
-        //    {
-        //        if ((hand[i].GetNumber() == tile.GetNumber()) && (hand[i].GetFamily() == tile.GetFamily()))
-        //            ret.Add(hand[i]);
-        //        if (ret.Count == 2)
-        //        {
-        //            ret.Add(tile);
-        //            return ret;
-        //        }
-        //    }
-        //    ret.Clear();
-        //    return ret;
-        //}
-
-        //private Group IsKong(Group hand, Tile tile)
-        //{
-        //    Group ret = new Group();
-        //    for (int i = 0; i < hand.Count; i++)
-        //    {
-        //        if ((hand[i].GetNumber() == tile.GetNumber()) && (hand[i].GetFamily() == tile.GetFamily()))
-        //            ret.Add(hand[i]);
-        //        if (ret.Count == 3)
-        //        {
-        //            ret.Add(tile);
-        //            return ret;
-        //        }
-        //    }
-        //    ret.Clear();
-        //    return ret;
-        //}
 
         private Group IsSimilar(Group hand, Tile tile, int nb)
         {
@@ -343,7 +337,7 @@ namespace Mahjong.Referee.HongKong
 
         public String GetDescription()
         {
-            return "Dans ton cul";
+            return "Shot description of mahjong rule";
         }
     }
 }

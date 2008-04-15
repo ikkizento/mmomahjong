@@ -44,10 +44,10 @@ namespace Mahjong.Referee.HongKong
                     if (ins[i].Group.Equal(rulepos.Group))
                     {
                         for (int j = 0; j < ins[i].Group.Count; j++)
-                        {
-                            rulepos.Player.AddExposed(ins[i].Group[j]);
                             rulepos.Player.RemoveHand(ins[i].Group[j]);
-                        }
+                        Tile rejtile = GetRejectTile();
+                        ins[i].Group.Add(rejtile);
+                        rulepos.Player.AddExposed(ins[i].Group);
                         m_current = rulepos.Player;
 
                         //Take();
