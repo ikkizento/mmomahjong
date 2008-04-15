@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="Chow.cs" />
     <Compile Include="Kong.cs" />
+    <Compile Include="Mahjong.cs" />
     <Compile Include="Pong.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Referee.cs" />

@@ -19,5 +19,16 @@ namespace Mahjong.Core
             return false;
         }
 
+        public Group Clone()
+        {
+            Group ins = new Group();
+            for (int i = 0; i < Count; i++)
+            {
+                ins.Add(this[i]);
+            }
+
+            return ins;
+        }
+
     }
 }
