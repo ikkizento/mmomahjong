@@ -6,10 +6,9 @@ namespace Mahjong.Core
 {
     public class PlayerData
     {
-
         private Group m_hand = new Group();
         private Group m_cemetery = new Group();
-        private Group m_exposed = new Group();
+        private List<Group> m_exposed = new List<Group>();
         private Tile m_rejected = null;
         private int m_position;
         private String m_name;
@@ -54,15 +53,16 @@ namespace Mahjong.Core
             m_cemetery.Add(add);
             return true;
         }
-        public Group GetExposed()
+        public List<Group> GetExposed()
         {
             return m_exposed;
         }
-        public bool AddExposed(Tile add)
+        public bool AddExposed(Group exposed)
         {
-            m_exposed.Add(add);
+            m_exposed.Add(exposed);
             return true;
         }
+
         public Tile GetRejected()
         {
             return m_rejected;
@@ -87,7 +87,7 @@ namespace Mahjong.Core
         {
             m_hand = new Group();
             m_cemetery = new Group();
-            m_exposed = new Group();
+            m_exposed.Clear();
             m_rejected = null;
         }
 

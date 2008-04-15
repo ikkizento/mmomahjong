@@ -34,19 +34,23 @@ namespace Mahjong.Referee.HongKong
                         findrules.Add(rulepos);
                 }
             }
-            Mahjong.Plugin.IReferee.m_rulepossibility rulepos2 = new IReferee.m_rulepossibility();
-            rulepos2.Rule = this;
-            rulepos2.Player = current;
-            rulepos2.Group = new Group();
-            Group etmp = current.GetExposed();
-            for (int i = 0; i < etmp.Count; i++)
+
+            for (int y = 0; y < current.GetExposed().Count; y++)
             {
-                Tile ttmp = etmp[i];
-                if ((rejected.GetNumber() == ttmp.GetNumber()) && (rejected.GetFamily() == ttmp.GetFamily()))
+                Mahjong.Plugin.IReferee.m_rulepossibility rulepos2 = new IReferee.m_rulepossibility();
+                rulepos2.Rule = this;
+                rulepos2.Player = current;
+                rulepos2.Group = new Group();
+                Group etmp = current.GetExposed()[y];
+                for (int i = 0; i < etmp.Count; i++)
                 {
-                    rulepos2.Group.Add(ttmp);
-                    if (rulepos2.Group.Count == 3)
-                        findrules.Add(rulepos2);
+                    Tile ttmp = etmp[i];
+                    if ((rejected.GetNumber() == ttmp.GetNumber()) && (rejected.GetFamily() == ttmp.GetFamily()))
+                    {
+                        rulepos2.Group.Add(ttmp);
+                        if (rulepos2.Group.Count == 3)
+                            findrules.Add(rulepos2);
+                    }
                 }
             }
             return findrules;
@@ -74,7 +78,7 @@ namespace Mahjong.Referee.HongKong
 
         public String GetDescription()
         {
-            return "Dans ton cul";
+            return "Shot description of kong rule";
         }
     }
 }
