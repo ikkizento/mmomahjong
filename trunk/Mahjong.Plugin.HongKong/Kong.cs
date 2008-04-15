@@ -15,6 +15,8 @@ namespace Mahjong.Referee.HongKong
             m_players = players;
             List<Mahjong.Plugin.IReferee.m_rulepossibility> findrules = new List<IReferee.m_rulepossibility>();
             PlayerData tmp = GetRejectTilePlayer();
+            if (tmp == null)
+                return findrules;
             Tile rejected = tmp.GetRejected();
             Group gtmp = current.GetHand();
 
