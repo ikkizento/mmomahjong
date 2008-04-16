@@ -49,7 +49,7 @@ namespace Mahjong.Referee.HongKong
                         ins[i].Group.Add(rejtile);
                         rulepos.Player.AddExposed(ins[i].Group);
                         m_current = rulepos.Player;
-
+                        m_mutextaken = true;
                         //Take();
                         return true;
                     }

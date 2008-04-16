@@ -58,7 +58,7 @@ namespace Mahjong.Server
             config.MaximumConnections = 128;
             config.Port = port;
             config.ServerName = Environment.MachineName + " server";
-
+            
             m_log = new NetLog();
             m_log.IgnoreTypes = NetLogEntryTypes.None;
             m_log.LogEvent += new EventHandler<NetLogEventArgs>(OnLogEvent);

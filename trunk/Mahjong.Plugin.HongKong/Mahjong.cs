@@ -46,28 +46,80 @@ namespace Mahjong.Referee.HongKong
 
             AddExposed(current);
             // Analyse real Mahjong
-
+            RemoveFalseMahjong();
             // Add Mahjong to findrules
-            
+            for (int i = 0; i < m_results.Count; i++)
+            {
+                Mahjong.Plugin.IReferee.m_rulepossibility ins = new IReferee.m_rulepossibility();
+                ins.Player = current;
+                ins.Rule = this;
+                ins.Group = current.GetHand();
+                findrules.Add(ins);
+            }
             return findrules;
         }
 
         private void AddExposed(PlayerData p)
         {
+            for (int i = 0; i < m_results.Count; i++)
+                AddTypeExposed(p, m_results[i]);
+        }
+
+        private void AddTypeExposed(PlayerData p, GroupType gtmp)
+        {
             List<Group> tmp = p.GetExposed();
+            
             for (int i = 0; i < tmp.Count; i++)
             {
+                Group grotmp = tmp[i].Clone();
+                s_type st = new s_type();
 
+                grotmp.Remove(grotmp[0]);
+                
+                st.Group = tmp[i];
+                st.exposed = true;
+                st.Type = e_type.Single;
+                if (IsChow(grotmp, tmp[i][0], 0).Count > 0)
+                    st.Type = e_type.Chow;
+                if (IsChow(grotmp, tmp[i][0], 1).Count > 0)
+                    st.Type = e_type.Chow;
+                if (IsChow(grotmp, tmp[i][0], 2).Count > 0)
+                    st.Type = e_type.Chow;
+                if (IsSimilar(grotmp, tmp[i][0], 3).Count > 0)
+                    st.Type = e_type.Kong;
+                if (st.Type == e_type.Single)
+                    if (IsSimilar(grotmp, tmp[i][0], 2).Count > 0)
+                        st.Type = e_type.Pong;
+                if (st.Type != e_type.Single)
+                    gtmp.Add(st);
             }
-
         }
 
         private bool RemoveFalseMahjong()
         {
             for (int i = 0; i < m_results.Count; i++)
             {
-
+                if (NormalMahjong(m_results[i]) == false)
+                {
+                    m_results.Remove(m_results[i]);
+                    i--;
+                }
             }
+            return true;
+        }
+
+        private bool NormalMahjong(GroupType gt)
+        {
+            int nbtwo = 0;
+            for (int i = 0; i < gt.Count; i++)
+            {
+                if (gt[i].Type == e_type.Single)
+                    return false;
+                if (gt[i].Type == e_type.Double)
+                    nbtwo++;
+            }
+            if (nbtwo > 1)
+                return false;
             return true;
         }
 
