@@ -6,7 +6,7 @@ using Mahjong.Core;
 
 namespace Mahjong.Referee.HongKong
 {
-    class Mahjongg : IRule
+    public class Mahjongg : IRule
     {
         public enum e_type
         {
@@ -26,19 +26,16 @@ namespace Mahjong.Referee.HongKong
 
         class GroupType : List<s_type> { }
 
-        private List<PlayerData> m_players;
         List<GroupType> m_results = new List<GroupType>();
 
         public List<Mahjong.Plugin.IReferee.m_rulepossibility> Execute(List<PlayerData> players, PlayerData current)
         {
-            m_players = players;
+            m_results.Clear();
             List<Mahjong.Plugin.IReferee.m_rulepossibility> findrules = new List<IReferee.m_rulepossibility>();
             PlayerData PrevPlayer = GetPreviousPlayer(players, current);
             Tile ttmp = PrevPlayer.GetRejected();
-            if (ttmp == null)
-                return findrules;
-
             Group gtmp = current.GetHand().Clone();
+
             if (ttmp != null)
                 gtmp.Add(ttmp);
 
@@ -345,7 +342,7 @@ namespace Mahjong.Referee.HongKong
                     int j = i - 1;
                     if (j == -1)
                         j = players.Count - 1;
-                    return m_players[j];
+                    return players[j];
                 }
 
             }

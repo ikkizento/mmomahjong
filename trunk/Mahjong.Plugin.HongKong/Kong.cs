@@ -8,13 +8,11 @@ namespace Mahjong.Referee.HongKong
 {
     class Kong : IRule
     {
-        private List<PlayerData> m_players;
 
         public List<Mahjong.Plugin.IReferee.m_rulepossibility> Execute(List<PlayerData> players, PlayerData current)
         {
-            m_players = players;
             List<Mahjong.Plugin.IReferee.m_rulepossibility> findrules = new List<IReferee.m_rulepossibility>();
-            PlayerData tmp = GetRejectTilePlayer();
+            PlayerData tmp = GetRejectTilePlayer(players);
             if (tmp == null)
                 return findrules;
             Tile rejected = tmp.GetRejected();
@@ -56,12 +54,12 @@ namespace Mahjong.Referee.HongKong
             return findrules;
         }
 
-        private PlayerData GetRejectTilePlayer()
+        private PlayerData GetRejectTilePlayer(List<PlayerData> players)
         {
-            for (int i = 0; i < m_players.Count; i++)
+            for (int i = 0; i < players.Count; i++)
             {
-                if (m_players[i].GetRejected() != null)
-                    return m_players[i];
+                if (players[i].GetRejected() != null)
+                    return players[i];
             }
             return null;
         }
