@@ -17,6 +17,8 @@ namespace Mahjong.Referee.HongKong
             PlayerData tmp = GetRejectTilePlayer();
             if (tmp == null)
                 return findrules;
+            if (tmp == current)
+                return findrules;
             Tile rejected = tmp.GetRejected();
             if (rejected == null)
                 return findrules;

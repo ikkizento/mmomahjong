@@ -43,7 +43,7 @@ namespace Mahjong.Plugin
         protected List<m_stile> m_tiles;
         protected List<IRule> m_rules = new List<IRule>();
 
-        private bool m_mutextaken;
+        protected bool m_mutextaken;
         protected virtual void GenerateTiles()
         {
             Mahjong.Core.Tile.Family family = Tile.Family.Circle;
