@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahjong.Client.Console", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahjong.Referee.HongKong.Test", "Mahjong.Referee.HongKong.Test\Mahjong.Referee.HongKong.Test.csproj", "{C6AE8E4D-82AA-401D-9005-0CFC3C2973B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahjong.Client.Test", "Mahjong.Client.Test\Mahjong.Client.Test.csproj", "{FBFA9702-94A3-4A27-9477-5808D343E54D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,12 @@ Global
 		{C6AE8E4D-82AA-401D-9005-0CFC3C2973B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6AE8E4D-82AA-401D-9005-0CFC3C2973B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6AE8E4D-82AA-401D-9005-0CFC3C2973B6}.Release|x86.ActiveCfg = Release|Any CPU
+		{FBFA9702-94A3-4A27-9477-5808D343E54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBFA9702-94A3-4A27-9477-5808D343E54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBFA9702-94A3-4A27-9477-5808D343E54D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FBFA9702-94A3-4A27-9477-5808D343E54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBFA9702-94A3-4A27-9477-5808D343E54D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBFA9702-94A3-4A27-9477-5808D343E54D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

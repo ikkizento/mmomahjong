@@ -83,14 +83,14 @@ namespace Mahjong.Plugin
                     ins.Tile = new Tile(family, i);
                     m_tiles.Add(ins);
                 }
-                family = Tile.Family.Flower;
-                for (i = 1; i < 5; i++)
-                {
-                    m_stile ins = new m_stile();
-                    ins.Position = TilePosition.Free;
-                    ins.Tile = new Tile(family, i);
-                    m_tiles.Add(ins);
-                }
+                //family = Tile.Family.Flower;
+                //for (i = 1; i < 5; i++)
+                //{
+                //    m_stile ins = new m_stile();
+                //    ins.Position = TilePosition.Free;
+                //    ins.Tile = new Tile(family, i);
+                //    m_tiles.Add(ins);
+                //}
                 family = Tile.Family.Season;
                 for (i = 1; i < 5; i++)
                 {
@@ -271,6 +271,16 @@ namespace Mahjong.Plugin
             return null;
         }
 
+        public PlayerData GetRejectPlayer()
+        {
+            for (int i = 0; i < m_players.Count; i++)
+            {
+                if (m_players[i].GetRejected() != null)
+                    return m_players[i];
+            }
+            return null;
+        }
+
         public abstract String GetName();
 
         public abstract int GetMaxPlayer();
@@ -346,8 +356,14 @@ namespace Mahjong.Plugin
                 Tile tmp = GetNewTile();
                 m_current.AddHand(tmp);
                 m_mutextaken = true;
-                if (GetTilePosition(GetPreviousPlayer().GetRejected()) == TilePosition.Player)
+                Tile ttmp = GetPreviousPlayer().GetRejected();
+                TilePosition tp = GetTilePosition(ttmp);
+                if (tp == TilePosition.Rejected)
+                {
                     ChangeTileStatus(GetPreviousPlayer().GetRejected(), TilePosition.Cemetery);
+                    GetPreviousPlayer().AddCemetery(GetPreviousPlayer().GetRejected());
+                    GetPreviousPlayer().AddRejected(null);
+                }
                 return tmp;
             }
             catch (EndGameException edg)

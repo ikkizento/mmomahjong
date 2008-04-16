@@ -8,10 +8,8 @@ namespace Mahjong.Referee.HongKong
 {
     class Chow : IRule
     {
-        private List<PlayerData> m_players;
         public List<Mahjong.Plugin.IReferee.m_rulepossibility> Execute(List<PlayerData> players, PlayerData current)
         {
-            m_players = players;
             List<Mahjong.Plugin.IReferee.m_rulepossibility> findrules = new List<IReferee.m_rulepossibility>();
             PlayerData PrevPlayer = GetPreviousPlayer(players, current);
             Tile ttmp = PrevPlayer.GetRejected();
@@ -68,7 +66,7 @@ namespace Mahjong.Referee.HongKong
                     int j = i - 1;
                     if (j == -1)
                         j = players.Count - 1;
-                    return m_players[j];
+                    return players[j];
                 }
                     
             }

@@ -67,6 +67,7 @@ namespace Mahjong.Core
         {
             return m_rejected;
         }
+
         public bool AddRejected(Tile add)
         {
             m_rejected = add;

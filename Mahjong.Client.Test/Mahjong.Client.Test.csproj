@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C6AE8E4D-82AA-401D-9005-0CFC3C2973B6}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{FBFA9702-94A3-4A27-9477-5808D343E54D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mahjong.Referee.HongKong.Test</RootNamespace>
-    <AssemblyName>Mahjong.Referee.HongKong.Test</AssemblyName>
+    <RootNamespace>Mahjong.Client.Test</RootNamespace>
+    <AssemblyName>Mahjong.Client.Test</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,15 +28,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MahjongTest.cs" />
-    <Compile Include="PongTest.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahjong.Core\Mahjong.Core.csproj">
@@ -46,6 +75,10 @@
     <ProjectReference Include="..\Mahjong.Plugin.HongKong\Mahjong.Referee.HongKong.csproj">
       <Project>{9A61DB9D-F65A-4DAD-B051-32297E7B89DB}</Project>
       <Name>Mahjong.Referee.HongKong</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mahjong.Plugin.Player\Mahjong.Plugin.Player.csproj">
+      <Project>{9F0B852E-33B0-4A06-AFFD-3C6A94A5D978}</Project>
+      <Name>Mahjong.Plugin.Player</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mahjong.Plugin\Mahjong.Plugin.Referee.csproj">
       <Project>{CAC57BA1-C723-44BA-95AB-3A05EB3B1D68}</Project>

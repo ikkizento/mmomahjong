@@ -45,12 +45,16 @@ namespace Mahjong.Referee.HongKong
                     {
                         for (int j = 0; j < ins[i].Group.Count; j++)
                             rulepos.Player.RemoveHand(ins[i].Group[j]);
+                        
                         Tile rejtile = GetRejectTile();
+                        
                         ins[i].Group.Add(rejtile);
                         rulepos.Player.AddExposed(ins[i].Group);
                         m_current = rulepos.Player;
+                        GetRejectPlayer().AddRejected(null);
+                        ChangeTileStatus(rejtile, TilePosition.Cemetery);
                         m_mutextaken = true;
-                        //Take();
+
                         return true;
                     }
                 }
