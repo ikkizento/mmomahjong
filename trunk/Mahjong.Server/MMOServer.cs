@@ -349,7 +349,7 @@ namespace Mahjong.Server
                     return true;
                 }
 
-                Tile t = p.CurrentRoom.GetReferee().Take();
+                Tile t = p.CurrentRoom.GetReferee().Take(p.CurrentRoom.GetReferee().CurrentPlayer());
 
                 if (t == null)
                 {
@@ -363,7 +363,7 @@ namespace Mahjong.Server
             if (tab[1] == "REMOVE")
             {
                 Tile t = p.CurrentRoom.GetReferee().GetTile(tab[2], Convert.ToInt32(tab[3]));
-                if (p.CurrentRoom.GetReferee().Rejected(t) == false)
+                if (p.CurrentRoom.GetReferee().Rejected(p.CurrentRoom.GetReferee().CurrentPlayer(), t) == false)
                     p.Send("TIL:REMOVE:KO");
                 else
                 {
