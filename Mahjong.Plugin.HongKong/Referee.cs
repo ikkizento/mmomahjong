@@ -47,12 +47,15 @@ namespace Mahjong.Referee.HongKong
                             rulepos.Player.RemoveHand(ins[i].Group[j]);
                         
                         Tile rejtile = GetRejectTile();
-                        
-                        ins[i].Group.Add(rejtile);
+                        if (rejtile != null)
+                            ins[i].Group.Add(rejtile);
                         rulepos.Player.AddExposed(ins[i].Group);
                         m_current = rulepos.Player;
-                        GetRejectPlayer().AddRejected(null);
-                        ChangeTileStatus(rejtile, TilePosition.Cemetery);
+                        if (rejtile != null)
+                        {
+                            GetRejectPlayer().AddRejected(null);
+                            ChangeTileStatus(rejtile, TilePosition.Cemetery);
+                        }
                         m_mutextaken = true;
 
                         return true;

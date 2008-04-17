@@ -52,6 +52,7 @@ namespace Mahjong.Plugin
 
             for (j = 0; j < 3; j++)
             {
+                family = Tile.Family.Circle;
                 for (i = 1; i < 10; i++)
                 {
                     m_stile ins = new m_stile();
@@ -254,11 +255,21 @@ namespace Mahjong.Plugin
 
         private PlayerData GetPreviousPlayer()
         {
-            int idx = m_players.IndexOf(m_current);
-            idx--;
-            if (idx == -1)
-                idx = m_players.Count - 1;
-            return m_players[idx];
+            //int idx = m_players.IndexOf(m_current);
+            //idx--;
+            //if (idx == -1)
+            //    idx = m_players.Count - 1;
+            //return m_players[idx];
+            PlayerData p = GetRejectPlayer();
+            if (p == null)
+            {
+                int idx = m_players.IndexOf(m_current);
+                idx--;
+                if (idx == -1)
+                    idx = m_players.Count - 1;
+                p = m_players[idx];
+            }
+            return p;
         }
 
         public Tile GetRejectTile()
@@ -333,8 +344,10 @@ namespace Mahjong.Plugin
             return TilePosition.Cemetery;
         }
 
-        public bool Rejected(Tile t)
+        public bool Rejected(PlayerData p, Tile t)
         {
+            if (p != m_current)
+                return false;
             if (m_mutextaken == false)
                 return false;
             m_mutextaken = false;
@@ -347,8 +360,10 @@ namespace Mahjong.Plugin
             return true;
         }
 
-        public Tile Take()
+        public Tile Take(PlayerData p)
         {
+            if (p != m_current)
+                return null;
             if (m_mutextaken == true)
                 return null;
             try

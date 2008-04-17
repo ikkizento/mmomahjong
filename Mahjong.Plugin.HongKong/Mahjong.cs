@@ -295,6 +295,7 @@ namespace Mahjong.Referee.HongKong
                 {
                     ret.Add(GetTile(hand, tile.GetFamily(), tile.GetNumber() - 2));
                     ret.Add(GetTile(hand, tile.GetFamily(), tile.GetNumber() - 1));
+                    ret.Add(tile);
                     return ret;
                 }
             }
@@ -305,16 +306,18 @@ namespace Mahjong.Referee.HongKong
                 {
                     ret.Add(GetTile(hand, tile.GetFamily(), tile.GetNumber() - 1));
                     ret.Add(GetTile(hand, tile.GetFamily(), tile.GetNumber() + 1));
+                    ret.Add(tile);
                     return ret;
                 }
             }
 
             if (type == 3)
             {
-                if ((HaveTile(hand, tile.GetFamily(), tile.GetNumber() + 1)) && (HaveTile(hand, tile.GetFamily(), tile.GetNumber() + 3)))
+                if ((HaveTile(hand, tile.GetFamily(), tile.GetNumber() + 1)) && (HaveTile(hand, tile.GetFamily(), tile.GetNumber() + 2)))
                 {
                     ret.Add(GetTile(hand, tile.GetFamily(), tile.GetNumber() + 1));
                     ret.Add(GetTile(hand, tile.GetFamily(), tile.GetNumber() + 2));
+                    ret.Add(tile);
                     return ret;
                 }
             }

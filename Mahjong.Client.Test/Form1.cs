@@ -122,25 +122,25 @@ namespace Mahjong.Client.Test
 
         private void button2_Click(object sender, EventArgs e)
         {
-            refe.Take();
+            refe.Take(p1);
             Draw();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            refe.Rejected(p1Hand[listBox1.SelectedIndex]);
+            refe.Rejected(p1, p1Hand[listBox1.SelectedIndex]);
             Draw();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            refe.Take();
+            refe.Take(p2);
             Draw();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            refe.Rejected(p2Hand[listBox8.SelectedIndex]);
+            refe.Rejected(p2, p2Hand[listBox8.SelectedIndex]);
             Draw();
         }
 
