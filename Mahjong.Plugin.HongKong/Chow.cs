@@ -16,7 +16,7 @@ namespace Mahjong.Referee.HongKong
             
             if (ttmp == null)
                 return findrules;
-            if ((ttmp.GetFamily() == Tile.Family.Flower) || (ttmp.GetFamily() == Tile.Family.Season) || (ttmp.GetFamily() == Tile.Family.Wind))
+            if ((ttmp.GetFamily() == Tile.Family.Flower) || (ttmp.GetFamily() == Tile.Family.Season) || (ttmp.GetFamily() == Tile.Family.Wind) || (ttmp.GetFamily() == Tile.Family.Dragon))
                 return findrules;
 
             if ((HaveTile(current, ttmp.GetFamily(), ttmp.GetNumber() - 2)) && (HaveTile(current, ttmp.GetFamily(), ttmp.GetNumber() - 1)))

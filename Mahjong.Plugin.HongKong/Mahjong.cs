@@ -50,7 +50,7 @@ namespace Mahjong.Referee.HongKong
                 Mahjong.Plugin.IReferee.m_rulepossibility ins = new IReferee.m_rulepossibility();
                 ins.Player = current;
                 ins.Rule = this;
-                ins.Group = current.GetHand();
+                ins.Group = current.GetHand().Clone();
                 findrules.Add(ins);
             }
             return findrules;
@@ -286,7 +286,7 @@ namespace Mahjong.Referee.HongKong
         {
             Group ret = new Group();
 
-            if ((tile.GetFamily() == Tile.Family.Flower) || (tile.GetFamily() == Tile.Family.Season) || (tile.GetFamily() == Tile.Family.Wind))
+            if ((tile.GetFamily() == Tile.Family.Flower) || (tile.GetFamily() == Tile.Family.Season) || (tile.GetFamily() == Tile.Family.Wind) || (tile.GetFamily() == Tile.Family.Dragon))
                 return ret;
             
             if (type == 1)
