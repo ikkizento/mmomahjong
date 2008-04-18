@@ -54,6 +54,18 @@ namespace Mahjong.Client.Test
             this.label10 = new System.Windows.Forms.Label();
             this.listBox8 = new System.Windows.Forms.ListBox();
             this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.listBox9 = new System.Windows.Forms.ListBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.listBox10 = new System.Windows.Forms.ListBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.listBox11 = new System.Windows.Forms.ListBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.listBox12 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // listBox1
@@ -290,11 +302,130 @@ namespace Mahjong.Client.Test
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(471, 673);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(103, 22);
+            this.button9.TabIndex = 38;
+            this.button9.Text = "call";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(514, 0);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(60, 22);
+            this.button10.TabIndex = 37;
+            this.button10.Text = "Reject";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(454, 0);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(60, 22);
+            this.button11.TabIndex = 36;
+            this.button11.Text = "take";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(415, 520);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(55, 13);
+            this.label11.TabIndex = 35;
+            this.label11.Text = "Posibilities";
+            // 
+            // listBox9
+            // 
+            this.listBox9.FormattingEnabled = true;
+            this.listBox9.Location = new System.Drawing.Point(416, 536);
+            this.listBox9.Name = "listBox9";
+            this.listBox9.Size = new System.Drawing.Size(158, 134);
+            this.listBox9.TabIndex = 34;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(415, 673);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(50, 13);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "Rejected";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(415, 341);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(48, 13);
+            this.label13.TabIndex = 32;
+            this.label13.Text = "Exposed";
+            // 
+            // listBox10
+            // 
+            this.listBox10.FormattingEnabled = true;
+            this.listBox10.Location = new System.Drawing.Point(415, 357);
+            this.listBox10.Name = "listBox10";
+            this.listBox10.Size = new System.Drawing.Size(159, 160);
+            this.listBox10.TabIndex = 31;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(415, 215);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(50, 13);
+            this.label14.TabIndex = 30;
+            this.label14.Text = "Cimetiere";
+            // 
+            // listBox11
+            // 
+            this.listBox11.FormattingEnabled = true;
+            this.listBox11.Location = new System.Drawing.Point(415, 231);
+            this.listBox11.Name = "listBox11";
+            this.listBox11.Size = new System.Drawing.Size(159, 108);
+            this.listBox11.TabIndex = 29;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(415, 9);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(33, 13);
+            this.label15.TabIndex = 28;
+            this.label15.Text = "Hand";
+            // 
+            // listBox12
+            // 
+            this.listBox12.FormattingEnabled = true;
+            this.listBox12.Location = new System.Drawing.Point(415, 25);
+            this.listBox12.Name = "listBox12";
+            this.listBox12.Size = new System.Drawing.Size(159, 186);
+            this.listBox12.TabIndex = 27;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(740, 713);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.listBox9);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.listBox10);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.listBox11);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.listBox12);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button6);
@@ -357,6 +488,18 @@ namespace Mahjong.Client.Test
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox listBox8;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ListBox listBox9;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ListBox listBox10;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ListBox listBox11;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ListBox listBox12;
     }
 }
 

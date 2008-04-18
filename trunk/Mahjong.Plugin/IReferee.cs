@@ -12,7 +12,8 @@ namespace Mahjong.Plugin
             Free,
             Player,
             Cemetery,
-            Rejected
+            Rejected,
+            Exposed
         }
 
         protected struct m_stile
@@ -163,6 +164,23 @@ namespace Mahjong.Plugin
         public void Reset()
         {
             m_tiles = new List<m_stile>();
+        }
+
+        public PlayerData Winner()
+        {
+            if (m_current.GetHand().Count == 0)
+                return m_current;
+            return null;
+        }
+
+        public bool Finished()
+        {
+            int ti = GetIndexFreeTile();
+
+            // End of game no tile left
+            if (ti == -1)
+                return true;
+            return false;
         }
 
         protected Tile GetNewTile()
@@ -352,9 +370,9 @@ namespace Mahjong.Plugin
                 return false;
             m_mutextaken = false;
             m_current.GetHand().Remove(t);
+            GetPreviousPlayer().AddRejected(null);
             m_current.AddRejected(t);
             ChangeTileStatus(t, TilePosition.Rejected);
-            GetPreviousPlayer().AddRejected(null);
             m_current = GetNextPlayer();
 
             return true;
